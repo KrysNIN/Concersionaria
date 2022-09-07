@@ -1,111 +1,141 @@
-def calcular_precio (Marca, Puertas, Color, ventas):
-
-    marcas =  {'ford': 100000, 'chevrolet': 120000, 'fiat': 80000}
-    colores = {'blanco': 10000, 'azul': 20000, 'negro': 30000}
-    puertas = {2: 50000, 4: 65000, 5: 78000}
-    precio = marcas[Marca]+colores[Color]+puertas[Puertas]
-    
-    if len(ventas) > 3 and len(ventas) < 6:
-        precio = precio*0.9
-    elif len(ventas) > 6 and len(ventas) < 10:
-        precio = precio*0.85
-    elif len(ventas) > 10:
-        precio = precio*0.82
-        
-    return precio
-
+Marcas =  ['ford', 'chevrolet', 'fiat']
+Puertas = [2, 4, 5]
+Colores = ['blanco', 'azul', 'negro']
 ventas = []
-mas_clientes = "si"
-puertas = [2, 4, 5]
-colores = ['blanco', 'azul', 'negro']
-marcas = ['ford', 'chevrolet', 'fiat']
 
-print ()
-print ("===================================================")
-print ("Bienvenido al Sistema de Consecionaria Automatizado")
-print ("===================================================")
-
-while mas_clientes == "si":
-
-    print ()
-    Nombre = input ('Ingrese su Nombre: ')
-    Apellido = input ('Ingrese su Apellido: ')
-    Marca = ""
-    Puertas = 0
-    Color = ""
-
-    while Marca not in marcas:
-        Marca = input ('Por favor, elija una marca entre Ford, Chevrolet y Fiat: ')
-        Marca = Marca.lower()
-    if Marca == "ford":
-        precio_marca = 100000
-    elif Marca == "chevrolet":
-        precio_marca = 120000
-    elif Marca == "fiat":
-        precio_marca = 80000
-
-    while Puertas not in puertas:
-        Puertas = int(input ('Por favor, elija una cantidad de puertas entre 2, 4 y 5: '))
-    if Puertas == 2:
-        precio_puertas = 50000
-    elif Puertas == 4:
-        precio_puertas = 65000
-    elif Puertas == 5:
-        precio_puertas = 78000
-
-    while Color not in colores:
-        Color = input ('Elija un color valido entre Blanco, Azul o Negro: ')
-        Color = Color.lower()
-    if Color == "blanco":
-        precio_color = 10000
-    elif Color == "azul":
-        precio_color = 20000
-    elif Color == "negro":
-        precio_color = 30000
-  
-    precio = calcular_precio (Marca, Puertas, Color, ventas)
-
-    ventas.append({'Nombre':Nombre, 'Apellido':Apellido, 'Marca':Marca, 'Puertas':Puertas, 'Color':Color, 'Total':precio, 'PrecioMarca':precio_marca, 'PrecioPuertas':precio_puertas, 'PrecioColor':precio_color})
-
-    print ()
-        
-    mas_clientes = input('Hay mas clientes?: ')
-    mas_clientes = mas_clientes.lower()
+class Clientes ():
     
-    if mas_clientes == "no":
-        
-        print()
-        for i in ventas:
-            print()        
-            print("La persona: " + i['Nombre']+" "+i['Apellido']+", compro un Auto marca "+i['Marca']+", de " +str(i['Puertas'])+" puertas, color " +i['Color']+", por un precio Total de: $ " +str(i['Total']))
-            print()
-            print("Los precios por separado son: ")
-            print("==============================")
-            print()
-            print("Precio del Auto Base: $ " + str(i['PrecioMarca']))
-            print("Precio de las Puertas: $ " + str(i['PrecioPuertas']))
-            print("Precio del Color: $ " + str(i['PrecioColor']))
-            print()
-            print("==============================")
-            print()
-        
-        if len(ventas) > 3 and len(ventas) < 6:
-            print("Estas ventas tienen un descuento del 10%...!")
-            print()
-            print("============================================")
-        elif len(ventas) > 6 and len(ventas) < 9:
-            print("Estas ventas tienen un descuento del 15%...!")
-            print()
-            print("============================================")
-        elif len(ventas) > 9:
-            print("Estas ventas tienen un descuento del 18%...!")
-            print()
-            print("============================================")
+    def __init__ (self):
+        self.Nombre = ""
+        self.Apellido = ""        
 
+    def datosCliente (self):
+        self.Nombre = input ("Ingrese su Nombre: ")
         print()
-        print("Cantidad de Ventas Totales: "+str(len(ventas)))                                         
+        self.Apellido = input ("Ingrese su Apellido : ")
         print()
-        print("==============================")
+
+class Autos (Clientes):
+
+    def __init__ (self):
+        self.Marca = ""
+        self.Color = ""
+        self.Puertas = ""
+        self.precio_marca = ""
+        self.precio_puertas = ""
+        self.precio_color = ""
+        self.total = ""
+
+    def marcas (self):
+        self.Marca = ""
+        while self.Marca not in Marcas:
+            self.Marca = input('Por favor, elija una marca entre Ford, Chevrolet y Fiat: ')
+            self.Marca = self.Marca.lower()
+            print()
+            if self.Marca == 'ford':
+                self.precio_marca = 100000
+            elif self.Marca == 'Chevrolet':
+                self.precio_marca = 120000
+            elif self.Marca == 'fiat':
+                self.precio_marca = 80000
+    
+    def puerta (self):
+        self.Puertas = ""
+        while self.Puertas not in Puertas:
+            self.Puertas = int(input ('Por favor, elija una cantidad de puertas entre 2, 4 y 5: '))
+            print()
+            if self.Puertas == 2:
+                self.precio_puertas = 50000
+            elif self.Puertas == 4:
+                self.precio_puertas = 65000
+            elif self.Puertas == 5:
+                self.precio_puertas = 78000
+        
+    def colores (self):
+        self.Color = ""
+        while self.Color not in Colores:
+            self.Color = input ('Elija un color valido entre Blanco, Azul o Negro: ')
+            self.Color = self.Color.lower()
+            print()
+            if self.Color == 'blanco':
+                self.precio_color = 10000
+            elif self.Color == 'azul':
+                self.precio_color = 20000
+            elif self.Color == 'negro':
+                self.precio_color = 30000
+    
+    def calcularPrecio (self):
+        self.total = self.precio_marca+self.precio_puertas+self.precio_color
+        return self.total
+
+class Ventas (Autos):
+
+    def __init__(self):
+        self.descuentos = ""
+
+    def descuento (self):
+        if len(ventas) > 3 and len(ventas) < 6:
+            self.descuentos = self.total*0.9
+           
+    def Imprimir (self):
+        for i in ventas:
+            print()
+            print("El cliente: "+i['Nombre']+" "+i['Apellido']+", compro un Auto Marca: "+i['Marca']+", la Cantidad de Puertas es de: "+str(i['Puertas'])+", y el color es: "+i['Color'])
+            print()
+            print()
+            print("==================")
+            print("Resumen de Compra:")
+            print("==================")
+            print("Auto Base ("+i['Marca']+"): $ "+str(i['precioMarcas']))
+            print(str(i['Puertas'])+" Puertas: $ "+str(i['precioPuertas']))
+            print("Color "+i['Color']+" $: "+str(i['precioColor']))
+            print("===============================")
+            print()
+            print("===============================")
+            print("El precio total es de: $ "+str(i['Total']))
+            print("===============================")
+            print()
+
+        if len(ventas) > 3 and len(ventas) < 6:
+            print("==============================================")
+            print("Estas ventas tuvieron un 10% de descuento...!!")
+            print("==============================================")
+            print()
+        print("=================")
+        print("Ventas totales: "+str(len(ventas)))
+        print("=================")
         print()
-        print('Muchas gracias por utilizar este sistema!, que tenga un excelente dia. :)')
+        print("===================================================================")
+        print("Muchas gracias por utilizar este sistema!, que tenga un buen día :)")
+        print("===================================================================")
         print()
+    
+mis_ventas = Ventas()
+
+def Compra():
+    
+    mas_clientes = "si"
+
+    print ()
+    print ("===================================================")
+    print ("Bienvenido al Sistema de Concesionaria Automatizado")
+    print ("===================================================")
+    print ()
+
+    while mas_clientes == "si":    
+        print()
+        mis_ventas.datosCliente()
+        mis_ventas.marcas()
+        mis_ventas.puerta()
+        mis_ventas.colores()         
+        mis_ventas.calcularPrecio()
+        ventas.append({'Nombre':mis_ventas.Nombre, 'Apellido':mis_ventas.Apellido, 'Marca':mis_ventas.Marca, 'Puertas':mis_ventas.Puertas, 'Color':mis_ventas.Color, 'precioMarcas':mis_ventas.precio_marca, 'precioPuertas':mis_ventas.precio_puertas, 'precioColor':mis_ventas.precio_color, 'Total':mis_ventas.total})
+        mas_clientes = input ("Hay mas clientes?: ").lower()
+        
+    if mas_clientes == "no":
+        mis_ventas.descuento()
+        mis_ventas.Imprimir()
+
+comprar = Compra()
+
+comprar
